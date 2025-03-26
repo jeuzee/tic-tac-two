@@ -1,0 +1,72 @@
+@page
+@model WebApp.Pages_Configs.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Config</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" asp-for="@Model.UserId" />
+            
+            <div class="form-group">
+                <label asp-for="Config.ConfigName" class="control-label"></label>
+                <input asp-for="Config.ConfigName" class="form-control" />
+                <span asp-validation-for="Config.ConfigName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Config.BoardWidth" class="control-label"></label>
+                <input asp-for="Config.BoardWidth" class="form-control" />
+                <span asp-validation-for="Config.BoardWidth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Config.BoardHeight" class="control-label"></label>
+                <input asp-for="Config.BoardHeight" class="form-control" />
+                <span asp-validation-for="Config.BoardHeight" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Config.WinCondition" class="control-label"></label>
+                <input asp-for="Config.WinCondition" class="form-control" />
+                <span asp-validation-for="Config.WinCondition" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Config.AmountOfPieces" class="control-label"></label>
+                <input asp-for="Config.AmountOfPieces" class="form-control" />
+                <span asp-validation-for="Config.AmountOfPieces" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Config.MovePieceAndGridAfterNMoves" class="control-label"></label>
+                <input asp-for="Config.MovePieceAndGridAfterNMoves" class="form-control" />
+                <span asp-validation-for="Config.MovePieceAndGridAfterNMoves" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Config.GridWidth" class="control-label"></label>
+                <input asp-for="Config.GridWidth" class="form-control" />
+                <span asp-validation-for="Config.GridWidth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Config.GridHeight" class="control-label"></label>
+                <input asp-for="Config.GridHeight" class="form-control" />
+                <span asp-validation-for="Config.GridHeight" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

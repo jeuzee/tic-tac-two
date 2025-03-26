@@ -1,0 +1,158 @@
+﻿@page
+@using Domain
+@using GameBrain
+@model WebApp.Pages.PlayGame
+
+<div class="game-container">
+    @if (!Model.GameEngine.CheckTie() && Model.Winner == EGamePiece.Empty)
+    {
+        <h1>Next move by: @Model.GameEngine.GetNextMoveBy()</h1>
+        <h1>Player X: @Model.GameEngine.GetPlayerX()</h1>
+        <h1>Player O: @Model.GameEngine.GetPlayerO()</h1>
+        @if (!string.IsNullOrEmpty(Model.Warning))
+        {
+            <div class="alert alert-danger" role="alert">
+                @Model.Warning
+            </div>
+        }
+        <div class="mode">
+            <span>Current mode:
+                @if (Model.Mode <= 1)
+                {
+                    <span>Place Piece</span>
+                }
+                else if (Model.Mode == 2)
+                {
+                    <span>Move Grid (Choose new grid start cell (grid starts from top-left cell))</span>
+                }
+                else
+                {
+                    <span>Move Piece</span>
+                }
+            </span>
+        </div>
+
+        @if (Model.GameEngine.ActionsAllowed > 0 &&
+             Model.GameEngine.PiecesPlaced >= Model.GameEngine.ActionsAllowed && Model.GameMode != EGameMode.AiVsAi)
+        {
+            <div class="mode">
+                <span>Options:</span>
+                <a asp-route-mode="1" asp-route-GameId="@Model.GameId" asp-route-GameMode="@Model.GameMode">Place Piece</a>
+                <a asp-route-mode="2" asp-route-GameId="@Model.GameId" asp-route-GameMode="@Model.GameMode">Move Grid</a>
+                <a asp-route-mode="3" asp-route-GameId="@Model.GameId" asp-route-GameMode="@Model.GameMode">Move Piece</a>
+                <a asp-route-reset="true" asp-route-GameId="@Model.GameId" asp-route-GameMode="@Model.GameMode">Reset game</a>
+            </div>
+        }
+        else
+        {
+            <div class="mode">
+                <span>Options:</span>
+                <a asp-route-reset="true" asp-route-GameId="@Model.GameId" asp-route-GameMode="@Model.GameMode">Reset game</a>
+            </div>
+        }
+        @if (Model.GameMode == EGameMode.AiVsAi)
+        {
+            <div class="mode">
+                <span>Make Ai move:</span>
+                <a asp-route-aiMove="true" asp-route-GameId="@Model.GameId" asp-route-GameMode="@Model.GameMode">Ai Move</a>
+            </div>
+        }
+    }
+    else
+    {
+        @if (Model.Winner == EGamePiece.X || Model.Winner == EGamePiece.O)
+        {
+            <h1>Winner is: Player @Model.Winner!</h1>
+        }
+        else if (Model.GameEngine.CheckTie())
+        {
+            <h1>It is a Tie!</h1>
+        }
+        <div class="mode">
+            <span>Options:</span>
+            <a asp-route-reset="true" asp-route-GameId="@Model.GameId" asp-route-GameMode="@Model.GameMode">Reset game</a>
+        </div>
+    }
+    <div class="gameboard">
+        @for (int y = 0; y < Model.GameEngine.DimY; y++)
+        {
+            <div class="row">
+                @for (int x = 0; x < Model.GameEngine.DimX; x++)
+                {
+                    <div class="cell @(x >= Model.GameEngine.GridStartX &&
+                                       x <= Model.GameEngine.GridEndX &&
+                                       y >= Model.GameEngine.GridStartY &&
+                                       y <= Model.GameEngine.GridEndY
+                                         ? "grid-cell"
+                                         : "")">
+                        @if (Model.Winner == EGamePiece.Empty)
+                        {
+                            if (Model.GameEngine.GameBoard[x][y] == EGamePiece.Empty && Model.Mode < 3)
+                            {
+                                <a asp-route-x="@x"
+                                   asp-route-y="@y"
+                                   asp-route-GameId="@Model.GameId"
+                                   asp-route-mode="@Model.Mode"
+                                   asp-route-GameMode="@Model.GameMode">...</a>
+                            }
+                            else
+                            {
+                                if (Model.Mode <= 1)
+                                {
+                                    @(Model.GameEngine.GameBoard[x][y])
+                                }
+                                else if (Model.Mode == 2)
+                                {
+                                    <a asp-route-x="@x"
+                                       asp-route-y="@y"
+                                       asp-route-GameId="@Model.GameId"
+                                       asp-route-mode="@Model.Mode"
+                                       asp-route-GameMode="@Model.GameMode">
+                                        @(Model.GameEngine.GameBoard[x][y])
+                                    </a>
+                                }
+                                else if (Model.Mode >= 3 && Model.OldX < 0 && Model.OldY < 0 && Model.GameEngine.GameBoard[x][y] != EGamePiece.Empty)
+                                {
+                                    <a asp-route-oldX="@x"
+                                       asp-route-oldY="@y"
+                                       asp-route-GameId="@Model.GameId"
+                                       asp-route-mode="@Model.Mode"
+                                       asp-route-GameMode="@Model.GameMode">
+                                        @(Model.GameEngine.GameBoard[x][y])
+                                    </a>
+                                }
+                                else if (Model.Mode >= 3 && Model.OldX >= 0 && Model.OldY >= 0 && Model.GameEngine.GameBoard[x][y] == EGamePiece.Empty)
+                                {
+                                    <a asp-route-oldX="@Model.OldX"
+                                       asp-route-oldY="@Model.OldY"
+                                       asp-route-newX="@x"
+                                       asp-route-newY="@y"
+                                       asp-route-GameId="@Model.GameId"
+                                       asp-route-mode="@Model.Mode"
+                                       asp-route-GameMode="@Model.GameMode">
+                                        ...
+                                    </a>
+                                }
+                                else if (Model.GameEngine.GameBoard[x][y] != EGamePiece.Empty)
+                                {
+                                    @Model.GameEngine.GameBoard[x][y];
+                                }
+                                else
+                                {
+                                    @("...")
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (Model.GameEngine.GameBoard[x][y] != EGamePiece.Empty)
+                            {
+                                @(Model.GameEngine.GameBoard[x][y])
+                            }
+                        }
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>

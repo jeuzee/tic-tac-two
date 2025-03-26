@@ -1,0 +1,148 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.hidden {
+    display: none;
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align everything to the left */
+    gap: .5rem; /* Add some space between the text and the gameboard */
+}
+
+.gameboard {
+    display: flex;
+    flex-direction: column;
+    gap: .3rem; /* Space between rows */
+    margin-left: 1rem;
+}
+
+.row {
+    display: flex;
+    gap: .3rem; /* Space between cells in a row */
+}
+
+.cell {
+    width: 3.5rem;
+    height: 3.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #A9A9A9; /* background for non-grid cells */
+    border: 1px solid #ccc; /* Border for all cells */
+    font-size: 18px; /* Adjust text size */
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    color: #FFFFFF;
+}
+
+.cell a {
+    text-decoration: none;
+    color: #FFFFFF; /* Link color */
+}
+
+.cell a:hover, .mode a:hover {
+    color: violet;
+    text-decoration: underline;
+}
+
+/* Highlight grid cells */
+.grid-cell {
+    background-color: #7B68EE; /* Light blue background for grid cells */
+}
+
+.mode {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px; /* Adjust text size */
+    font-weight: bold;
+    text-align: right;
+    color: #FFFFFF;
+    gap: 1rem;
+}
+
+.mode a {
+    text-decoration: none;
+    color: #000000; /* Link color */
+}
+
+.mode span {
+    color: #000000;
+}
+
+.mode span span {
+    margin-left: .6rem;
+    color: violet;
+}
+
+
+.configs-container {
+    margin-top: 2rem;
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    text-align: center;
+    padding: 0.75rem;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+}
+
+.game-state-preview {
+    max-height: 80px; /* Preview height */
+    overflow: hidden;
+    position: relative;
+}
+
+.game-state-preview:hover {
+    max-height: none; /* Expand on hover */
+    overflow: visible;
+    background-color: #f8f9fa; /* Highlight expanded area */
+    z-index: 1;
+}
+
+.game-state-content {
+    word-break: break-word; /* Prevent overflow */
+    white-space: normal;
+    line-height: 1.2em;
+}
+

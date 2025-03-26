@@ -1,0 +1,54 @@
+@page
+@model WebApp.Pages_Configs.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+
+
+<div class="configs-container">
+    <table class="table table-bordered table-hover">
+        <thead class="table-light">
+        <tr>
+            <th>Config Name</th>
+            <th>Board Width</th>
+            <th>Board Height</th>
+            <th>Grid Width</th>
+            <th>Grid Height</th>
+            <th>Win Condition</th>
+            <th>Amount of Pieces</th>
+            <th>Amount of placed pieces to move grid/piece</th>
+            <th>Created At</th>
+            <th>Modified At</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.Config)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.ConfigName)</td>
+                <td>@Html.DisplayFor(modelItem => item.BoardWidth)</td>
+                <td>@Html.DisplayFor(modelItem => item.BoardHeight)</td>
+                <td>@Html.DisplayFor(modelItem => item.GridWidth)</td>
+                <td>@Html.DisplayFor(modelItem => item.GridHeight)</td>
+                <td>@Html.DisplayFor(modelItem => item.WinCondition)</td>
+                <td>@Html.DisplayFor(modelItem => item.AmountOfPieces)</td>
+                <td>@Html.DisplayFor(modelItem => item.MovePieceAndGridAfterNMoves)</td>
+                <td>@Html.DisplayFor(modelItem => item.CreatedAt)</td>
+                <td>@Html.DisplayFor(modelItem => item.ModifiedAt)</td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
