@@ -12,7 +12,7 @@
 `Player vs AI` <br>
 `AI vs AI` <br>
 
-- To swap from `JSON` to `Database` or vice versa all that you need to do is change comment and uncomment corresponding lines in `program.cs` file <br>
+- To swap from `JSON` to `Database` or vice versa all that you need to do is comment and uncomment corresponding lines in `program.cs` file <br>
 For ConsoleApp `program.cs`: <br>
 `var configRepository = new ConfigRepositoryJson();` <br>
 `var gameRepository = new GameRepositoryJson();` <br>
