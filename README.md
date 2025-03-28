@@ -21,6 +21,10 @@ For ConsoleApp `program.cs`: <br>
 `// var configRepository = new ConfigRepositoryDb(dbContext);` <br>
 `// var gameRepository = new GameRepositoryDb(dbContext);` <br>
 For WebApp `program.cs`: <br>
+`// connectionString = connectionString.Replace("<%location%>", FileHelper.BasePath);` <br>
+`//` <br>
+`// builder.Services.AddDbContext<AppDbContext>(options =>` <br>
+`//      options.UseSqlite(connectionString));` <br>
 `builder.Services.AddScoped<IConfigRepository, ConfigRepositoryJson>();` <br>
 `builder.Services.AddScoped<IGameRepository, GameRepositoryJson>();` <br>
 `builder.Services.AddScoped<IUserRepository, UserRepositoryJson>();` <br>
